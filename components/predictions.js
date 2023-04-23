@@ -1,9 +1,10 @@
 import copy from "copy-to-clipboard";
 import { Copy as CopyIcon, PlusCircle as PlusCircleIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import Loader from "components/loader";
+import erc721Abi from "abis/ERC721.json";
+import { Contract, ethers } from "ethers";
 
 export default function Predictions({ predictions, submissionCount }) {
   const scrollRef = useRef(null);
@@ -64,6 +65,20 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
     return () => clearInterval(intervalId);
   }, []);
 
+  const handleMint = async (uri) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const signer = provider.getSigner();
+    const erc721Contract = new Contract(
+      "0x5DAfB9133e5C2469670F537c9AF140B246888095",
+      erc721Abi,
+      signer
+    );
+    const tx = await erc721Contract.mint(uri);
+    const receipt = await tx.wait();
+    console.log(receipt);
+  };
+
   if (!prediction) return null;
 
   return (
@@ -97,6 +112,13 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
         <button className="lil-button" onClick={copyLink}>
           <CopyIcon className="icon" />
           {linkCopied ? "Copied!" : "Copy link"}
+        </button>
+
+        <button
+          onClick={() => handleMint(prediction)}
+          className="bg-green-300 ml-4 py-1 px-8 rounded shadow active:bg-green-400"
+        >
+          Mint
         </button>
 
         {showLinkToNewScribble && (
