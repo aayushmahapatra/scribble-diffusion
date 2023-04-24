@@ -1,9 +1,11 @@
 import copy from "copy-to-clipboard";
 import { Copy as CopyIcon, PlusCircle as PlusCircleIcon } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { Fragment, useEffect, useRef, useState } from "react";
 import Loader from "components/loader";
+import erc721Abi from "abis/ERC721.json";
+import { Contract, ethers } from "ethers";
+import { upload } from "@spheron/browser-upload";
 
 export default function Predictions({ predictions, submissionCount }) {
   const scrollRef = useRef(null);
@@ -45,6 +47,8 @@ export default function Predictions({ predictions, submissionCount }) {
 
 export function Prediction({ prediction, showLinkToNewScribble = false }) {
   const [linkCopied, setLinkCopied] = useState(false);
+  const [uploadRes, setUploadRes] = useState(null);
+  const [transactionHash, setTransactionHash] = useState("");
 
   const copyLink = () => {
     const url =
@@ -63,6 +67,38 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
 
     return () => clearInterval(intervalId);
   }, []);
+
+  const handleUpload = async (imgUrl) => {
+    // create file from image url
+    let res = await fetch(imgUrl);
+    let data = await res.blob();
+    let metadata = { type: "image/png" };
+    let file = new File([data], "avatar.png", metadata);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_ADDR}/initiate-upload`
+    );
+    const resJson = await response.json();
+    const uploadResult = await upload([file], {
+      token: resJson.uploadToken,
+    });
+    setUploadRes(uploadResult);
+  };
+
+  const handleMint = async (imgUrl) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+
+    const signer = provider.getSigner();
+    const erc721Contract = new Contract(
+      process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+      erc721Abi,
+      signer
+    );
+    const tx = await erc721Contract.mint(imgUrl);
+    const receipt = await tx.wait();
+    console.log(receipt);
+    setTransactionHash(receipt.transactionHash);
+  };
 
   if (!prediction) return null;
 
@@ -94,10 +130,39 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
         &ldquo;{prediction.input.prompt}&rdquo;
       </div>
       <div className="text-center py-2">
-        <button className="lil-button" onClick={copyLink}>
-          <CopyIcon className="icon" />
-          {linkCopied ? "Copied!" : "Copy link"}
+        <button
+          onClick={() => handleUpload(prediction?.output[0])}
+          className="bg-blue-300 py-1 px-8 rounded shadow active:bg-blue-400"
+        >
+          Upload
         </button>
+
+        {uploadRes && (
+          <button
+            onClick={() => handleMint(uploadRes?.dynamicLinks[0])}
+            className="bg-green-300 ml-4 py-1 px-8 rounded shadow active:bg-green-400"
+          >
+            Mint
+          </button>
+        )}
+
+        {uploadRes?.dynamicLinks[0] && (
+          <div className="mt-4">
+            Spheron Upload URL:{" "}
+            <a
+              href={`https://${uploadRes?.dynamicLinks[0]}`}
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-blue-400"
+            >
+              {uploadRes?.dynamicLinks[0]}
+            </a>
+          </div>
+        )}
+
+        {transactionHash && (
+          <div className="mt-2">Transaction Hash: {transactionHash}</div>
+        )}
 
         {showLinkToNewScribble && (
           <Link href="/">
