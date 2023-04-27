@@ -2,7 +2,7 @@
   "name": "scribble-diffusion",
   "description": "Turn your sketch into a refined image using AI",
   "appName": "Scribble Diffusion 2.0",
-  "appSubtitle": "Turn your sketch into a refined image using AI, Upload it using Spheron Browser SDK and Mint it as an NFT",
+  "appSubtitle": "Generate AI based Avatars and Mint as NFT",
   "appMetaDescription": "Turn your sketch into a refined image using AI",
   "version": "1.0.0",
   "private": true,

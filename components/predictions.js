@@ -104,7 +104,7 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
 
   return (
     <div className="mt-6 mb-12">
-      <div className="shadow-lg border my-5 p-5 bg-white flex">
+      <div className="border my-5 p-5 bg-white flex rounded-md shadow-md">
         <div className="w-1/2 aspect-square relative border">
           <img
             src={prediction.input.image}
@@ -126,13 +126,13 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
           )}
         </div>
       </div>
-      <div className="text-center px-4 opacity-60 text-xl">
+      <div className="text-center px-4 opacity-60 text-xl py-2 my-2 rounded-md bg-gray-300 border border-black">
         &ldquo;{prediction.input.prompt}&rdquo;
       </div>
       <div className="text-center py-2">
         <button
           onClick={() => handleUpload(prediction?.output[0])}
-          className="bg-blue-300 py-1 px-8 rounded shadow active:bg-blue-400"
+          className="bg-[#9bf96e] border border-black py-1 px-8 rounded shadow hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
         >
           Upload
         </button>
@@ -140,7 +140,7 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
         {uploadRes && (
           <button
             onClick={() => handleMint(uploadRes?.dynamicLinks[0])}
-            className="bg-green-300 ml-4 py-1 px-8 rounded shadow active:bg-green-400"
+            className="bg-[#9bf96e] border border-black ml-4 py-1 px-8 rounded shadow hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
           >
             Mint
           </button>

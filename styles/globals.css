@@ -18,10 +18,14 @@ input {
 .lil-button {
   @apply inline-block;
   @apply text-sm;
-  @apply text-gray-500;
   @apply rounded-md;
   @apply py-2;
-  @apply mx-3;
+  @apply px-3;
+  @apply my-2;
+  @apply mx-2;
+  @apply bg-[#9bf96e];
+  @apply border;
+  @apply border-black;
 }
 
 .lil-text {

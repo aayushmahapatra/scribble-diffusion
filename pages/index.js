@@ -101,17 +101,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
-      <main className="container max-w-[1024px] mx-auto p-5 ">
+      <hgroup className="bg-black w-full mb-4 text-white p-6">
+        <h1 className="text-center text-4xl font-bold">{pkg.appName}</h1>
+        <p className="text-center text-lg py-1 px-2 bg-white w-1/3 mx-auto text-black rounded-full">
+          {pkg.appSubtitle}
+        </p>
+      </hgroup>
+      <main className="container max-w-[1024px] mx-auto">
         <div className="container max-w-[512px] mx-auto">
-          <hgroup>
-            <h1 className="text-center text-5xl font-bold m-4">
-              {pkg.appName}
-            </h1>
-            <p className="text-center text-xl opacity-60 m-4">
-              {pkg.appSubtitle}
-            </p>
-          </hgroup>
-
           <Canvas
             startingPaths={seed.paths}
             onScribble={setScribble}

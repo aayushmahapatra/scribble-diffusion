@@ -61,7 +61,7 @@ export default function Canvas({
 
       <ReactSketchCanvas
         ref={canvasRef}
-        className="w-full aspect-square border-none cursor-crosshair"
+        className="w-full aspect-square border-none cursor-crosshair hover:shadow-md"
         strokeWidth={4}
         strokeColor="black"
         onChange={onChange}
@@ -70,11 +70,17 @@ export default function Canvas({
 
       {scribbleExists && (
         <div className="animate-in fade-in duration-700 text-left">
-          <button className="lil-button" onClick={undo}>
+          <button
+            className="lil-button hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
+            onClick={undo}
+          >
             <UndoIcon className="icon" />
             Undo
           </button>
-          <button className="lil-button" onClick={reset}>
+          <button
+            className="lil-button hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
+            onClick={reset}
+          >
             <TrashIcon className="icon" />
             Clear
           </button>
