@@ -1,8 +1,8 @@
 {
   "name": "scribble-diffusion",
   "description": "Turn your sketch into a refined image using AI",
-  "appName": "Scribble Diffusion 2.0",
-  "appSubtitle": "Generate AI based Avatars and Mint as NFT",
+  "appName": "Generate and Mint AI based Avatars",
+  "appSubtitle": "Turn your sketch into a refined image using AI",
   "appMetaDescription": "Turn your sketch into a refined image using AI",
   "version": "1.0.0",
   "private": true,
@@ -28,6 +28,7 @@
     "lucide-react": "^0.88.0",
     "naughty-words": "^1.2.0",
     "next": "^13.1.6",
+    "next-auth": "^4.22.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-sketch-canvas": "^6.2.0",

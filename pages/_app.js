@@ -1,11 +1,12 @@
+import { SessionProvider } from "next-auth/react";
 import "../styles/globals.css";
-import { Analytics } from '@vercel/analytics/react';
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
-      <Component {...pageProps} />
-      <Analytics />
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </>
   );
 }

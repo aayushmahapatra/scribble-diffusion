@@ -36,7 +36,7 @@ export default function Canvas({
 
     setScribbleExists(true);
 
-    const data = await canvasRef.current.exportImage("png");
+    const data = await canvasRef.current?.exportImage("png");
     onScribble(data);
   };
 
