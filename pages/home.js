@@ -37,7 +37,7 @@ export default function Home() {
 
     const prompt = e.target.prompt.value
       .split(/\s+/)
-      .map((word) => (naughtyWords.en.includes(word) ? "something" : word))
+      ?.map((word) => (naughtyWords.en.includes(word) ? "something" : word))
       .join(" ");
 
     setError(null);

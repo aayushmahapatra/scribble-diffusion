@@ -32,7 +32,7 @@ export default function Predictions({ predictions, submissionCount }) {
       {Object.values(predictions)
         .slice()
         .reverse()
-        .map((prediction, index) => (
+        ?.map((prediction, index) => (
           <Fragment key={prediction.id}>
             {index === 0 &&
               submissionCount == Object.keys(predictions).length && (
