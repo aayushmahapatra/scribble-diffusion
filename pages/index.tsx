@@ -40,7 +40,10 @@ const SignIn: FC = () => {
         </h2>
         <section className="flex justify-center mb-4">
           <button
-            onClick={() => signIn()}
+            onClick={(e) => {
+              e.preventDefault();
+              signIn();
+            }}
             className="lil-button hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
           >
             Sign In with Google
