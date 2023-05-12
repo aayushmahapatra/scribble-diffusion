@@ -21,13 +21,13 @@ const Prediction: FC<IPrediction> = ({
 
   const copyLink = () => {
     const url =
-      window.location.origin +
+      (window as any).location.origin +
       "/scribbles/" +
       (prediction.uuid || prediction.id); // if the prediction is from the Replicate API it'll have `id`. If it's from the SQL database, it'll have `uuid`
     copy(url);
   };
 
-  const handleUpload = async (imgUrl) => {
+  const handleUpload = async (imgUrl: string) => {
     // create file from image url
     let res = await fetch(imgUrl);
     let data = await res.blob();

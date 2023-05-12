@@ -25,6 +25,7 @@ const Canvas: FC<ICanvas> = ({
       ?.removeAttribute("mask");
 
     loadStartingPaths();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function loadStartingPaths() {
