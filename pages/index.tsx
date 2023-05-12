@@ -42,7 +42,9 @@ const SignIn: FC = () => {
           <button
             onClick={(e) => {
               e.preventDefault();
-              signIn();
+              signIn("google", {
+                callbackUrl: "/home",
+              });
             }}
             className="lil-button hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
           >

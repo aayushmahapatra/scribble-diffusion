@@ -109,7 +109,7 @@ export default function Home() {
           {pkg.appSubtitle}
         </p>
         <button
-          onClick={() => signOut()}
+          onClick={() => signOut({ callbackUrl: "/" })}
           className="absolute top-2 right-3 py-2 px-3 text-[#9bf96e] text-sm border border-[#9bf96e] rounded-md hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
         >
           Sign Out
