@@ -35,7 +35,7 @@ export default Scribble;
 
 // Use getServerSideProps to force Next.js to render the page on the server,
 // so the OpenGraph meta tags will have the proper URL at render time.
-export async function getServerSideProps({ req }) {
+export async function getStaticProps({ req }) {
   const protocol = req.headers.referer?.split("://")[0] || "http";
   const predictionId = req.url.split("/")[2];
   const baseUrl = `${protocol}://${req.headers.host}`;
