@@ -43,7 +43,7 @@ const SignIn: FC = () => {
             onClick={(e) => {
               e.preventDefault();
               signIn("google", {
-                callbackUrl: `${process.env.NEXTAUTH_URL}/home`,
+                callbackUrl: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}/home`,
               });
             }}
             className="lil-button hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"

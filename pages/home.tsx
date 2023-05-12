@@ -110,7 +110,7 @@ export default function Home() {
         </p>
         <button
           onClick={() =>
-            signOut({ callbackUrl: `${process.env.NEXTAUTH_URL}` })
+            signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_NEXTAUTH_URL}` })
           }
           className="absolute top-2 right-3 py-2 px-3 text-[#9bf96e] text-sm border border-[#9bf96e] rounded-md hover:opacity-80 active:opacity-100 active:bg-[#9bf96e]"
         >
