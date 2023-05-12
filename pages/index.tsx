@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import Router from "next/router";
 import { useSession, signIn } from "next-auth/react";
 import seeds from "lib/seeds";
-import pkg from "../package.json";
 import Canvas from "components/canvas";
+import pkg from "package.json";
 
-export default function SignIn() {
+const SignIn: FC = () => {
   const { data: session } = useSession();
   const [seed] = useState(seeds[Math.floor(Math.random() * seeds.length)]);
 
@@ -55,4 +55,6 @@ export default function SignIn() {
       </main>
     </>
   );
-}
+};
+
+export default SignIn;

@@ -1,17 +1,17 @@
+import { useEffect, useState } from "react";
+import Head from "next/head";
+import Router from "next/router";
+import Script from "next/script";
+import naughtyWords from "naughty-words";
+import { useSession, signOut } from "next-auth/react";
 import Canvas from "components/canvas";
 import PromptForm from "components/prompt-form";
-import Head from "next/head";
-import { useEffect, useState } from "react";
-import Router from "next/router";
 import Predictions from "components/predictions";
 import Error from "components/error";
 import uploadFile from "lib/upload";
-import naughtyWords from "naughty-words";
-import Script from "next/script";
 import seeds from "lib/seeds";
-import pkg from "../package.json";
 import sleep from "lib/sleep";
-import { useSession, signOut } from "next-auth/react";
+import pkg from "package.json";
 
 export default function Home() {
   const { data: session } = useSession();

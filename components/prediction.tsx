@@ -1,52 +1,21 @@
-import copy from "copy-to-clipboard";
-import { Copy as CopyIcon, PlusCircle as PlusCircleIcon } from "lucide-react";
+import { FC, useState } from "react";
 import Link from "next/link";
-import { Fragment, useEffect, useRef, useState } from "react";
-import Loader from "components/loader";
-import erc721Abi from "abis/ERC721.json";
 import { Contract, ethers } from "ethers";
 import { upload } from "@spheron/browser-upload";
+import { PlusCircle as PlusCircleIcon } from "lucide-react";
+import copy from "copy-to-clipboard";
+import erc721Abi from "abis/ERC721.json";
+import Loader from "components/loader";
 
-export default function Predictions({ predictions, submissionCount }) {
-  const scrollRef = useRef(null);
-
-  useEffect(() => {
-    if (submissionCount > 0) {
-      scrollRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [predictions, submissionCount]);
-
-  if (submissionCount === 0) return;
-
-  return (
-    <section className="w-full my-10">
-      <h2 className="text-center text-3xl font-bold m-6">Results</h2>
-
-      {submissionCount > Object.keys(predictions).length && (
-        <div className="pb-10 mx-auto w-full text-center">
-          <div className="pt-10" ref={scrollRef} />
-          <Loader />
-        </div>
-      )}
-
-      {Object.values(predictions)
-        .slice()
-        .reverse()
-        ?.map((prediction, index) => (
-          <Fragment key={prediction.id}>
-            {index === 0 &&
-              submissionCount == Object.keys(predictions).length && (
-                <div ref={scrollRef} />
-              )}
-            <Prediction prediction={prediction} />
-          </Fragment>
-        ))}
-    </section>
-  );
+interface IPrediction {
+  prediction: any;
+  showLinkToNewScribble?: boolean;
 }
 
-export function Prediction({ prediction, showLinkToNewScribble = false }) {
-  const [linkCopied, setLinkCopied] = useState(false);
+const Prediction: FC<IPrediction> = ({
+  prediction,
+  showLinkToNewScribble = false,
+}) => {
   const [uploadRes, setUploadRes] = useState(null);
   const [transactionHash, setTransactionHash] = useState("");
 
@@ -56,17 +25,7 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
       "/scribbles/" +
       (prediction.uuid || prediction.id); // if the prediction is from the Replicate API it'll have `id`. If it's from the SQL database, it'll have `uuid`
     copy(url);
-    setLinkCopied(true);
   };
-
-  // Clear the "Copied!" message after 4 seconds
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setLinkCopied(false);
-    }, 4 * 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
 
   const handleUpload = async (imgUrl) => {
     // create file from image url
@@ -85,8 +44,10 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
     setUploadRes(uploadResult);
   };
 
-  const handleMint = async (imgUrl) => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+  const handleMint = async (imgUrl: string) => {
+    const provider = new ethers.providers.Web3Provider(
+      (window as any).ethereum
+    );
 
     const signer = provider.getSigner();
     const erc721Contract = new Contract(
@@ -175,4 +136,6 @@ export function Prediction({ prediction, showLinkToNewScribble = false }) {
       </div>
     </div>
   );
-}
+};
+
+export { Prediction };

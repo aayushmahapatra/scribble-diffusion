@@ -1,16 +1,21 @@
-import * as React from "react";
-import { useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
-
 import { Undo as UndoIcon, Trash as TrashIcon } from "lucide-react";
 
-export default function Canvas({
+interface ICanvas {
+  startingPaths: any;
+  onScribble: any;
+  scribbleExists: any;
+  setScribbleExists: any;
+}
+
+const Canvas: FC<ICanvas> = ({
   startingPaths,
   onScribble,
   scribbleExists,
   setScribbleExists,
-}) {
-  const canvasRef = React.useRef(null);
+}) => {
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     // Hack to work around Firfox bug in react-sketch-canvas
@@ -88,4 +93,6 @@ export default function Canvas({
       )}
     </div>
   );
-}
+};
+
+export default Canvas;

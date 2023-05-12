@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Footer({ events }) {
+const Footer = () => {
   return (
     <footer className="w-full my-8">
       <div className="text-center lil-text mt-8">
@@ -30,4 +30,6 @@ export default function Footer({ events }) {
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

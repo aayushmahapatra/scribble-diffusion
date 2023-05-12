@@ -1,11 +1,18 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
-export default function PromptForm({
+interface IPromptForm {
+  initialPrompt: string;
+  onSubmit: (e: any) => Promise<void>;
+  isProcessing?: boolean;
+  scribbleExists: boolean;
+}
+
+const PromptForm: FC<IPromptForm> = ({
   initialPrompt,
   onSubmit,
   scribbleExists,
-}) {
-  const [prompt, setPrompt] = useState(initialPrompt);
+}) => {
+  const [prompt, setPrompt] = useState<string>(initialPrompt);
 
   const disabled = !(scribbleExists && prompt?.length > 0);
 
@@ -13,7 +20,7 @@ export default function PromptForm({
     setPrompt(initialPrompt);
   }, [initialPrompt]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     onSubmit(e);
   };
@@ -43,4 +50,6 @@ export default function PromptForm({
       </div>
     </form>
   );
-}
+};
+
+export default PromptForm;

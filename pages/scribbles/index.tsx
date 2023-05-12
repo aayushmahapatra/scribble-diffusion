@@ -1,9 +1,8 @@
-import Predictions from "components/predictions";
 import Head from "next/head";
-import pkg from "../../package.json";
-import { getRecentPredictions } from "lib/db";
+import pkg from "package.json";
+import Predictions from "components/predictions";
 
-export default function RecentScribbles({ predictions }) {
+const RecentScribbles = ({ predictions }) => {
   return (
     <div>
       <Head>
@@ -28,9 +27,6 @@ export default function RecentScribbles({ predictions }) {
       </main>
     </div>
   );
-}
+};
 
-export async function getServerSideProps() {
-  const predictions = await getRecentPredictions();
-  return { props: { predictions } };
-}
+export default RecentScribbles;

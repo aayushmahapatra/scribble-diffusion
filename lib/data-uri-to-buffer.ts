@@ -40,7 +40,7 @@ export default function dataUriToBuffer(uri) {
   // get the encoded data portion and decode URI-encoded chars
   const encoding = base64 ? "base64" : "ascii";
   const data = unescape(uri.substring(firstComma + 1));
-  const buffer = Buffer.from(data, encoding);
+  const buffer: any = Buffer.from(data, encoding);
 
   // set `.type` and `.typeFull` properties to MIME type
   buffer.type = type;
@@ -50,4 +50,4 @@ export default function dataUriToBuffer(uri) {
   buffer.charset = charset;
 
   return buffer;
-};
+}
