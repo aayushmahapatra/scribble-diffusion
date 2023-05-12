@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@spheron/browser-upload": "^1.0.0",
-    "@vercel/og": "^0.1.0",
+    "@vercel/og": "^0.5.4",
     "copy-to-clipboard": "^3.3.3",
     "ethers": "5.7.2",
     "lodash": "^4.17.21",
